@@ -26,33 +26,34 @@ Geth.prototype.traceBlock = async function (blockNumber) {
     blockNumber = Web3.utils.toHex(blockNumber)
   }
 
+  const opts = getTraceOptions()
   const payload = {
     jsonrpc: '2.0',
     id: id++,
     method: 'debug_traceBlockByNumber',
-    params: [
-      blockNumber,
-      {
-        tracer: 'flatCallTracer',
-      },
-    ],
+    params: [blockNumber, opts],
   }
   return await this.send(payload)
 }
 
 Geth.prototype.traceTransaction = async function (txHash) {
+  const opts = getTraceOptions()
   const payload = {
     jsonrpc: '2.0',
     id: id++,
     method: 'debug_traceTransaction',
-    params: [
-      txHash,
-      {
-        tracer: 'flatCallTracer',
-      },
-    ],
+    params: [txHash, opts],
   }
   return await this.send(payload)
+}
+
+const getTraceOptions = function () {
+  const opts = {
+    tracer: 'flatCallTracer',
+    convertParityErrors: true,
+  }
+
+  return opts
 }
 
 module.exports = Geth
