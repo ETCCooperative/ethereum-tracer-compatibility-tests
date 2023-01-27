@@ -17,9 +17,6 @@ const testRunner = async () => {
     let startBlockNumber = 1
     let latestBlockNumber = await geth.getBlockNumber()
 
-    startBlockNumber = 4859 + 785
-    // latestBlockNumber = 1103249
-
     for (let i = startBlockNumber; i < latestBlockNumber; i++) {
       if (failedBlocksToSkip.indexOf(i) > -1) {
         console.log('-- Skipping block', i)
