@@ -50,7 +50,9 @@ Geth.prototype.traceTransaction = async function (txHash) {
 const getTraceOptions = function () {
   const opts = {
     tracer: 'flatCallTracer',
-    convertParityErrors: true,
+    tracerConfig: {
+      convertParityErrors: true,
+    },
   }
 
   return opts
